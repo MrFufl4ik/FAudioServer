@@ -146,10 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    linkDetails.addEventListener('click', () => {
-        navigator.clipboard.writeText(fileLink);
-    })
-
     // Reset UI after upload
     function resetUI() {
         uploadBtn.disabled = true;

@@ -170,7 +170,6 @@ body {
     border-radius: 8px;
     color: #5f76d6;
     font-style: inherit;
-    user-select: none;
     cursor: pointer;
     border: 1px solid #374151;
 }
