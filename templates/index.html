@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Server | Upload</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>аудио сервер жабок</h1>
+            <p>загрузите свое аудио, и получите прямую ссылку</p>
+        </div>
+
+        <div class="file-info hidden" id="linkInfo">
+            <h3>ваша прямая ссылка:</h3>
+            <div class="link-details" id="linkDetails", style="word-wrap: break-word">
+
+            </div>
+        </div>
+
+        <div class="upload-container" id="dropZone">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <div class="upload-text">
+                <h2>drag & drop</h2>
+                <p>перетащите файл сюда, или нажмите кнопку ниже</p>
+            </div>
+            <button class="browse-btn" id="browseBtn">обзор</button>
+            <input type="file" id="fileInput" class="file-input" accept="audio/*" multiple>
+        </div>
+
+        <div class="file-info hidden" id="fileInfo">
+            <h3>выбранный файл:</h3>
+            <div class="file-details" id="fileDetails">
+
+            </div>
+        </div>
+
+        <button class="upload-btn" id="uploadBtn" disabled>загрузить файл</button>
+
+        <div class="footer">
+            <p>поддерживаемые форматы: mp3, wav, ogg</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
