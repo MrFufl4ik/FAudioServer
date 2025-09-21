@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const linkDetails = document.getElementById('linkDetails');
 
     let selectedFile
+    let fileLink
 
     // Browse button click handler
     browseBtn.addEventListener('click', () => {
@@ -96,16 +97,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Upload button click handler
-    uploadBtn.addEventListener('click', () => {
+    uploadBtn.addEventListener('click', async () => {
         uploadBtn.disabled = true;
         const originalText = uploadBtn.textContent;
         uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> загружаю...';
 
         const linkElement = document.createElement('div');
-        const link = generateLinkBySelectedFile()
+
+        fileLink = await uploadFileToServer()
+
         linkElement.innerHTML = `
-            <p>${link}</p>
+            <p>${fileLink}</p>
         `
+
         linkDetails.innerHTML = ''
         linkDetails.appendChild(linkElement)
         linkInfo.classList.remove('hidden');
@@ -116,13 +120,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     });
 
-    linkDetails.addEventListener('click', () => {
-        navigator.clipboard.writeText(generateLinkBySelectedFile());
-    })
+    async function uploadFileToServer(){
+        try {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
 
-    function generateLinkBySelectedFile(){
-        return "https://google.com"
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                const fullUrl = window.location.origin + result.url;
+                console.log('File uploaded successfully:', fullUrl);
+                return fullUrl;
+            } else {
+                throw new Error(result.error || 'Upload failed');
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            alert('Error uploading file: ' + error.message);
+            return null;
+        }
     }
+
+    linkDetails.addEventListener('click', () => {
+        navigator.clipboard.writeText(fileLink);
+    })
 
     // Reset UI after upload
     function resetUI() {
