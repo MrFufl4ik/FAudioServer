@@ -68,4 +68,4 @@ def get_file(filename):
         return jsonify({'error': 'File not found'}), 404
 
 if __name__ == '__main__':
-    app.run(port=1469, debug=False)
+    app.run(host="0.0.0.0", port=1469, debug=False)
